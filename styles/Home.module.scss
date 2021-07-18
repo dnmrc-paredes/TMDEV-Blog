@@ -1,0 +1,219 @@
+@import './variables.scss';
+
+.container {
+  // background-color: red;
+  // min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 2rem 0;
+
+  main {
+
+    section#sect1 {
+      display: flex;
+      justify-content: center;
+      // background-color: white;
+      // align-items: center;
+      // background-color: red;
+
+      .profileroot {
+        // background-image: url('/js.jpg');
+        background-color: white;
+        // box-shadow: 12px 0 15px -4px rgba(0, 0, 0, 0.2), -12px 0 8px -4px rgba(0, 0, 0, 0.2);
+        // padding: 1rem;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 720px;
+        // background-size: cover;
+        // background-position: center;
+        // background-repeat: no-repeat;
+        // overflow: hidden;
+        // border-left: solid 3px black;
+        // border-right: solid 3px black;
+
+        .bgimg {
+          // background-color: red;
+          margin-bottom: 1rem;
+          // border-bottom: solid 3px black;
+        }
+
+        .myprofile {
+          display: flex;
+          margin-bottom: 1rem;
+          // background-color: red;
+          padding: 1rem 0;
+
+          .myprofileimg {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            // background-color: red;
+            
+            img {
+              width: 150px;
+              height: 150px;
+              border-radius: 50%;
+              border: solid blue 3px;
+            }
+          }
+
+          .myprofiledetails {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            // background-color: yellow;
+
+            h1, p {
+              font-family: $main-font;
+            }
+          }
+        }
+
+        .tabbar {
+          display: flex;
+          justify-content: space-around;
+          // background-color: yellow;
+          // padding: 1rem;
+          // border-top: solid black 3px;
+          // border-bottom: solid black 3px;
+          // border-radius: 5px;
+
+          p {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            font-family: $main-font;
+            font-weight: 500;
+            padding: 1rem;
+            cursor: pointer;
+            transition-property: all;
+            transition-duration: 0.3s;
+
+            &:hover {
+              background-color: $jscolor;
+              // color: white;
+            }
+          }
+        }
+        
+        .currentTab {
+          display: flex;
+
+          .aboutroot {
+            margin-top: 1rem;
+            // background-color: red;
+            padding: 2rem;
+
+            h1, p {
+              font-family: $main-font;
+            }
+
+            h1 {
+              margin-bottom: 1rem;
+              font-size: 2rem;
+              font-weight: 800;
+            }
+          }
+
+          .blogroot {
+            margin-top: 1rem;
+            padding: 2rem;
+            width: 100%;
+
+            h1 {
+              font-family: $main-font;
+              font-size: 2rem;
+              margin-bottom: 1rem;
+              font-weight: 800;
+            }
+
+            .blog {
+              border-radius: 5px;
+              margin: 0.5rem 0;
+              padding: 1rem 0;
+              width: 100%;
+              cursor: pointer;
+              transition-duration: 0.5s;
+              transition-property: all;
+              
+              // &:hover {
+              //   background-color: $jscolor;
+              // }
+
+              h2 {
+                font-family: $main-font;
+                margin-bottom: 0.5rem;
+              }
+
+              p {
+                font-family: $main-font;
+                white-space: pre-line;
+              }
+            }
+          }
+
+          .galleryroot {
+            margin-top: 1rem;
+            padding: 1rem;
+
+            h1 {
+              font-family: $main-font;
+            }
+          }
+
+        }
+
+      }
+    }
+  }
+}
+
+// Media Q's
+
+@media screen and (max-width: 600px) {
+
+  .container {
+
+    main {
+
+      section#sect1 {
+
+        .profileroot {
+
+          .myprofile {
+            flex-direction: column;
+
+            .myprofiledetails {
+              margin-top: 1rem;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+@media screen and (max-width: 450px) {
+
+  .container {
+
+    main {
+
+      section#sect1 {
+
+        .profileroot {
+
+          .currentTab {
+
+            .aboutroot {
+              padding: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
