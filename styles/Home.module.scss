@@ -4,6 +4,8 @@
   // background-color: red;
   // min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.1);
+  transition-property: all;
+  transition-duration: 0.3s;
   padding: 2rem 0;
 
   main {
@@ -89,6 +91,7 @@
             cursor: pointer;
             transition-property: all;
             transition-duration: 0.3s;
+            // text-transform: uppercase;
 
             &:hover {
               background-color: $jscolor;
@@ -111,8 +114,11 @@
 
             h1 {
               margin-bottom: 1rem;
-              font-size: 2rem;
-              font-weight: 800;
+              // font-weight: 700;
+              letter-spacing: 5px;
+              // color: $jscolor;
+              // border: solid 1px black;
+              text-transform: uppercase;
             }
           }
 
@@ -123,9 +129,10 @@
 
             h1 {
               font-family: $main-font;
-              font-size: 2rem;
               margin-bottom: 1rem;
-              font-weight: 800;
+              // font-weight: 800;
+              letter-spacing: 5px;
+              text-transform: uppercase;
             }
 
             .blog {
@@ -136,12 +143,13 @@
               cursor: pointer;
               transition-duration: 0.5s;
               transition-property: all;
+              // background-color: red;
               
               // &:hover {
               //   background-color: $jscolor;
               // }
 
-              h2 {
+              h3 {
                 font-family: $main-font;
                 margin-bottom: 0.5rem;
               }
@@ -155,10 +163,37 @@
 
           .galleryroot {
             margin-top: 1rem;
-            padding: 1rem;
+            padding: 2rem;
+            // background-color: red;
+            width: 100%;
 
             h1 {
               font-family: $main-font;
+              margin-bottom: 1rem;
+              letter-spacing: 5px;
+              text-transform: uppercase;
+            }
+
+            .item {
+              display: flex;
+              // background-color: yellow;
+              // flex-direction: column;
+            }
+
+            .galleryitem {
+              // background-color: red;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              
+              .img1, .img2 {
+                // flex: 1;
+                // background-color: red;
+                margin: 0.5rem;
+                border-radius: 3px;
+                overflow: hidden;
+              }
             }
           }
 
@@ -170,6 +205,14 @@
 }
 
 // Media Q's
+
+@media screen and (max-width: 737px) {
+
+  .container {
+    padding: 0;
+  }
+
+}
 
 @media screen and (max-width: 600px) {
 
@@ -189,12 +232,27 @@
               align-items: center;
             }
           }
+
+          .galleryroot {
+
+            .item {
+              flex-direction: column;
+            }
+
+            .galleryitem {
+              flex-direction: column;
+              align-items: center;
+              // padding: 1rem;
+              
+            }
+          }
         }
       }
     }
   }
 
 }
+
 @media screen and (max-width: 450px) {
 
   .container {
@@ -208,7 +266,18 @@
           .currentTab {
 
             .aboutroot {
-              padding: 1rem;
+              padding: 2rem;
+              // padding: 1rem;
+            }
+
+            .blogroot {
+              padding: 2rem;
+              // padding: 1rem;
+            }
+
+            .galleryroot {
+              padding: 2rem;
+              // padding: 1rem;
             }
           }
         }

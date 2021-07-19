@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.scss'
 import Link from 'next/link'
 import axios from 'axios'
 import { useState } from 'react'
@@ -9,13 +8,17 @@ import { GetServerSideProps, NextPage } from 'next'
 // Typescript
 import { Iblog } from '../ts/blogs'
 
+// Components
+import Footer from '../components/footer/footer'
+
 // Styles & Images
-import backgroundImage from '../public/js.jpg'
-import myProfile from '../public/myprofile.jpg'
+import styles from '../styles/Home.module.scss'
 
 export const getServerSideProps: GetServerSideProps = async () => {
 
     const {data: blogs} = await axios.get('http://localhost:1337/blogs')
+    // const {data: video} = await axios.get('http://localhost:1337/uploads/tekken.mp4')
+    // console.log(video)
 
     return {
         props: {
@@ -34,7 +37,7 @@ const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
       <div className={styles.aboutroot} >
         <div className={styles.aboutme}>
           <h1> About Me </h1>
-          <p> Hi, I&apos;m Dinmarc, I&apos;m a Web Developer specializing Javascript as main language.
+          <p> Hi, I&apos;m <strong> Dinmarc </strong>, I&apos;m a <strong> Web Developer </strong> specializing <strong> Javascript </strong> as main language.
           I loved and like to create stuffs I always want to discover new things in my specialized language I&apos;m currently advancing my knowledge about Javascript both Frontend & Backend.
           </p> 
         </div>
@@ -49,8 +52,8 @@ const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
         { blogs && blogs.map(item => {
           return <Link href={`/blog/${item.slug}`} key={item.slug} passHref>
               <div className={styles.blog}>
-                <h2> {item.title} </h2>
-                <p> {item.description.substr(0, 30)} </p> 
+                <h3> {item.title} </h3>
+                {/* <p> {item.description.substr(0, 30)} </p>  */}
               </div>
           </Link>
         }) }
@@ -62,6 +65,28 @@ const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
     return (
       <div className={styles.galleryroot}>
         <h1> Gallery </h1>
+          {/* <video autoPlay width="330px" controls src="http://localhost:1337/uploads/tekken.mp4" /> */}
+          <div className={styles.galleryitem}>
+
+            <div className={styles.item}>
+              <div className={styles.img1}>
+                <Image height={200} width={360} src="http://localhost:1337/uploads/code_app.png" alt="sdfsdf" /> 
+              </div>
+              <div className={styles.img2}>
+                <Image height={200} width={360} src="http://localhost:1337/uploads/blazingreaders.PNG" alt="sdfsdf" />
+              </div> 
+            </div>
+
+            {/* <div className={styles.item}>
+              <div className={styles.img1}>
+                <Image height={200} width={360} src="http://localhost:1337/uploads/code_app.png" alt="sdfsdf" /> 
+              </div>
+              <div className={styles.img2}>
+                <Image height={200} width={360} src="http://localhost:1337/uploads/blazingreaders.PNG" alt="sdfsdf" />
+              </div> 
+            </div> */}
+
+          </div>
       </div>
     )
   }
@@ -78,12 +103,12 @@ const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
             <section id={styles.sect1}>
                 <div className={styles.profileroot}>
                     <div className={styles.bgimg}>
-                        <Image src={backgroundImage} alt="asdfsdf" />
+                        <Image height={400} width={720} src='/js.jpg' alt="asdfsdf" />
                     </div>
 
                     <div className={styles.myprofile}>
                         <div className={styles.myprofileimg}>
-                            <Image src={myProfile} alt="asdfsdaf" />
+                            <Image height={100} width={100} src="/myprofile.jpg" alt="asdfsdaf" />
                         </div>
 
                         <div className={styles.myprofiledetails}>
@@ -98,17 +123,13 @@ const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
                         <p onClick={() => setTab('gallery')} > Gallery </p>
                     </div>
 
-                    {/* <div className={styles.blogroot}>
-                      { blogs.map(item => {
-                        console.log(item.title)
-                      }) }
-                    </div> */}
-
                     <div className={styles.currentTab}>
                       { tab === 'about' && <About/> }
                       { tab === 'blog' && <Blog/> }
                       { tab === 'gallery' && <Gallery/> }
                     </div>
+
+                    <Footer/>
                 </div>
             </section>
         </main>

@@ -1,0 +1,99 @@
+@import '../../styles/variables.scss';
+
+.container {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 2rem 0;
+    min-height: 100vh;
+    transition-property: all;
+    transition-duration: 0.3s;
+
+    main {
+        display: flex;
+        justify-content: center;
+        
+        section#blog {
+            display: flex;
+            // justify-content: center;
+            flex-direction: column;
+            width: 720px;
+            height: 100%;
+            min-height: 100vh;
+            background-color: white;
+
+            .title {
+                padding: 2rem 2rem 0 2rem;
+                font-family: $main-font;
+
+            }
+
+            .description {
+                padding: 2rem;
+                font-family: $main-font;
+                
+                p {
+                    white-space: pre-line;
+                }
+            }
+
+            .goback {
+                padding: 0rem 2rem 2rem 2rem;
+
+                button {
+                    font-family: $main-font;
+                    padding: 0.5rem 1rem;
+                    border-radius: 25px;
+                    outline: none;
+                    border: none;
+                    border: solid black 1px;
+                    background-color: black;
+                    color: white;
+                    transition-property: all;
+                    transition-duration: 0.3s;
+                    cursor: pointer;
+
+                    &:hover {
+                        border: solid $jscolor 1px;
+                        color: white;
+                        background-color: $jscolor;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 737px) {
+
+    .container {
+      padding: 0;
+    }
+  
+}
+
+@media screen and (max-width: 450px) {
+
+    .container {
+    
+        main {
+            
+            section#blog {
+    
+                .title {
+                    // padding: 2rem;
+                    padding: 1rem;
+                    text-align: center;
+                }
+    
+                .description {
+                    // padding: 2rem;
+                    padding: 1rem;
+                }
+
+                .goback {
+                    padding: 1rem;
+                }
+            }
+        }
+    }
+
+}
