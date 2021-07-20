@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import axios from 'axios'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { GetServerSideProps, NextPage } from 'next'
 
 // Typescript
@@ -30,7 +31,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
 
-  const [tab, setTab] = useState<string>('about')
+  const router = useRouter()
+  const { tab } = router.query as {tab: string}
+  // router.query({ tab: 'about' })
+  const [currentTab, setCurrentTab] = useState<string>(tab ? tab : 'about')
+  // console.log(queryParam)
 
   const About = () => {
     return (
@@ -118,15 +123,25 @@ const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
                     </div>
 
                     <div className={styles.tabbar}>
-                        <p onClick={() => setTab('about')} > About </p>
-                        <p onClick={() => setTab('blog')} > Blog </p>
-                        <p onClick={() => setTab('gallery')} > Gallery </p>
+                        <p onClick={() => {
+                          router.push({query: {tab: 'about'}})
+                          setCurrentTab('about')
+                        }} > About </p>
+                        <p onClick={() => {
+                          router.push({query: {tab: 'blog'}})
+                          setCurrentTab('blog')}
+                          } > Blog </p>
+                        <p onClick={() => {
+                          router.push({query: {tab: 'gallery'}})
+                          setCurrentTab('gallery')}
+                          } > Gallery </p>
                     </div>
 
                     <div className={styles.currentTab}>
-                      { tab === 'about' && <About/> }
-                      { tab === 'blog' && <Blog/> }
-                      { tab === 'gallery' && <Gallery/> }
+                      {/* { currentTab !== 'about' || 'gallery' || 'blog' && <About/> } */}
+                      { currentTab === 'about' && <About/> }
+                      { currentTab === 'blog' && <Blog/> }
+                      { currentTab === 'gallery' && <Gallery/> }
                     </div>
 
                     <Footer/>

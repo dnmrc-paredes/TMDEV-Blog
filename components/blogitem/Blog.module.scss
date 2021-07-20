@@ -1,0 +1,39 @@
+@import '../../styles/variables.scss';
+
+.blog {
+    // background-color: yellow;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.2rem 0;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition-duration: 0.3s;
+
+    h3 {
+        font-family: $main-font;
+        font-weight: 500;
+        margin: auto 0;
+    }
+
+    .options {
+        margin-top: 0.5rem;
+        transition-duration: 0.3s;
+        display: flex;
+        justify-content: center;
+        margin: auto 0;
+        // align-items: center;
+
+        .optionicon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 0.3rem;
+            background-color: #0C2D48;
+            border-radius: 5px;
+            height: 22px;
+            width: 22px;
+            // padding: 0.25rem 0.5rem;
+            // padding: 0.2rem 0;
+        }
+    }
+}

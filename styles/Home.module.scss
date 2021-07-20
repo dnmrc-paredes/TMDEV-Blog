@@ -55,7 +55,7 @@
               width: 150px;
               height: 150px;
               border-radius: 50%;
-              border: solid blue 3px;
+              // border: solid blue 3px;
             }
           }
 
@@ -94,8 +94,9 @@
             // text-transform: uppercase;
 
             &:hover {
-              background-color: $jscolor;
-              // color: white;
+              // background-color: $jscolor;
+              background-color: #0C2D48;
+              color: white;
             }
           }
         }
@@ -116,6 +117,10 @@
               margin-bottom: 1rem;
               // font-weight: 700;
               letter-spacing: 5px;
+              background-color: #0C2D48;
+              color: white;
+              padding: 1rem;
+              // margin: auto;
               // color: $jscolor;
               // border: solid 1px black;
               text-transform: uppercase;
@@ -133,12 +138,15 @@
               // font-weight: 800;
               letter-spacing: 5px;
               text-transform: uppercase;
+              background-color: #0C2D48;
+              color: white;
+              padding: 1rem;
             }
 
             .blog {
               border-radius: 5px;
               margin: 0.5rem 0;
-              padding: 1rem 0;
+              padding: 0.5rem 0;
               width: 100%;
               cursor: pointer;
               transition-duration: 0.5s;
@@ -151,13 +159,9 @@
 
               h3 {
                 font-family: $main-font;
-                margin-bottom: 0.5rem;
+                font-weight: 500;
               }
 
-              p {
-                font-family: $main-font;
-                white-space: pre-line;
-              }
             }
           }
 
@@ -172,6 +176,9 @@
               margin-bottom: 1rem;
               letter-spacing: 5px;
               text-transform: uppercase;
+              background-color: #0C2D48;
+              color: white;
+              padding: 1rem;
             }
 
             .item {

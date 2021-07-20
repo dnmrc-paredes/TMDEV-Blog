@@ -1,14 +1,40 @@
-import { NextPage } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useState, ChangeEvent, FormEvent } from 'react'
+import { useDispatch } from 'react-redux'
+import cookies from 'next-cookies'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 
+// Redux
+import { loginUser } from '../../../../redux/actions/action'
+
+// Styles
 import styles from './Login.module.scss'
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+
+    const tae = cookies({req}).tmdevtoken
+    
+    if (tae) {
+        return {
+            redirect: {
+                destination: '/admin/auth/dashboard',
+                permanent: false
+            },
+        }
+    }
+
+    return {
+        props: {}
+    }
+
+}
 
 const Login: NextPage = () => {
-    
+
+    const dispatch = useDispatch()
     const [login, setLogin] = useState({
         identifier: "",
         password: ""
@@ -33,7 +59,12 @@ const Login: NextPage = () => {
             }
     
             const {data} = await axios.post('http://localhost:1337/auth/local/', login)
-            sessionStorage.setItem('token', data.jwt)
+            // sessionStorage.setItem('token', data.jwt)
+            if (data.user) {
+                dispatch(loginUser(data.user))
+            }
+
+            document.cookie=`tmdevtoken=${data.jwt}; path=/;`
             
         } catch (err) {
             toast('Invalid Email / Password.', { type: "error", draggable: true })

@@ -53,16 +53,17 @@
                 // margin: auto;
                 padding: 0.5rem 1rem;
                 border-radius: 25px;
-                border: none;
+                border: solid 1px #0000B9;
                 outline: none;
                 margin-top: 1rem;
-                background-color: hsl(52, 84%, 63%);
+                background-color: white;
                 transition-property: all;
                 transition-duration: 0.5s;
                 cursor: pointer;
+                color: #0000B9;
 
                 &:hover {
-                    background-color: hsl(52, 84%, 40%);
+                    background-color: #0000B9;
                     color: white;
                 }
             }

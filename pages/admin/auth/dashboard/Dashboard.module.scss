@@ -10,16 +10,20 @@
     min-height: 100vh;
     padding: 2rem 0;
 
-    main {
+    main.main {
         background-color: white;
+        // flex: 1;
         width: 720px;
         display: flex;
+        justify-content: center;
         flex-direction: column;
         // flex-direction: column;
         // align-items: center;
         // justify-content: center;
         .title {
+            flex: 1;
             padding: 2rem;
+            // background-color: yellow;
             // display: flex;
             // justify-content: center;
             // background-color: red;
@@ -29,5 +33,162 @@
                 text-align: center;
             }
         }
+        
+        .dashboardroot {
+            flex: 10;
+            // background-color: red;
+
+            .totalblogs {
+                // background-color: $jscolor;
+                // background-color: #00008B;
+                display: flex;
+                flex-direction: column;
+                padding: 2rem;
+                margin: 0 2rem;
+                border-radius: 5px;
+                // border: solid 2px #0C2D48;
+                background-color: #0C2D48;
+
+                h1 {
+                    font-family: $main-font;
+                    margin-bottom: 0.5rem;
+                    color: #0C2D48;
+                    color: white;
+                }
+
+                p {
+                    font-family: $main-font;
+                    font-weight: 500;
+                    font-size: 1.3rem;
+                    color: #0C2D48;
+                    color: white;
+                }
+            }
+
+            .blogslist {
+                // background-color: red;
+                padding: 2rem;
+
+                h1 {
+                    font-family: $main-font;
+                    padding: 1rem 2rem;
+                    background-color: #0C2D48;
+                    border-radius: 5px;
+                    color: white;
+                }
+
+                .blogs {
+                    margin-top: 1rem;
+                    // background-color: teal;
+                    height: 200px;
+                    padding: 0.5rem;
+
+                    // .blog {
+                    //     background-color: yellow;
+                    //     margin: 0.5rem 0;
+                    //     padding: 0.5rem;
+
+                    //     h3 {
+                    //         font-family: $main-font;
+                    //         font-weight: 500;
+                    //     }
+
+                    //     .options {
+                    //         margin-top: 0.5rem;
+                    //     }
+                    // }
+                }
+            }
+
+            // Edit Modal
+            .editmodal {
+                display: flex;
+                background-color: white;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                width: 720px;
+                height: 100%;
+                position: relative;
+                z-index: 4;
+
+                .closebtn {
+                    flex: 1;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    // background-color: red;
+                    width: 98%;
+
+                    .close {
+                        cursor: pointer;
+                    }
+                }
+
+                .edit {
+                    flex: 15;
+                    display: flex;
+                    // align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    // align-items: left;
+                    // background-color: yellow;
+                    width: 90%;
+                    // height: 100%;
+                    // min-height: 100vh;
+                    // background-color: white;
+                    // background-color: yellow;
+
+                    label {
+                        font-family: $main-font;
+                        margin: 0.5rem;
+                        // width: 95%;
+                        // background-color: teal;
+                        
+                    }
+    
+                    input, textarea {
+                        // width: 100%;
+                        padding: 0.5rem;
+                        margin: 0.5rem;
+                        // background-color: red;
+                        font-family: $main-font;
+                    }
+
+                    button {
+                        width: 100px;
+                        margin: 0.5rem;
+                        font-family: $main-font;
+                        padding: 0.5rem 1rem;
+                        border-radius: 25px;
+                        outline: none;
+                        border: none;
+                        border: solid #0C2D48 2px;
+                        background-color: white;
+                        color: #0C2D48;
+                        font-weight: 600;
+                        transition-property: all;
+                        transition-duration: 0.3s;
+                        cursor: pointer;
+    
+                        &:hover {
+                            border: solid #0C2D48 2px;
+                            color: white;
+                            background-color: #0C2D48;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
+
+// Media Q's
+
+@media screen and (max-width: 737px) {
+
+    .container {
+      padding: 0;
+    }
+  
+  }

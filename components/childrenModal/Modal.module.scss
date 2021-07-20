@@ -1,0 +1,35 @@
+.container {
+    position: fixed;
+    // background-color: red;
+    background-color: rgba(0, 0, 0, 0.301);
+    display: flex;
+    justify-content: center;
+    // align-content: center;
+    padding: 2rem 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    // .modal {
+    //     display: flex;
+    //     justify-content: center;
+    //     flex-direction: column;
+    //     width: 720px;
+    //     background-color: yellow;
+    // }
+    .close {
+        cursor: pointer;
+        position: fixed;
+        // background-color: red;
+        // background-color: rgba(0, 0, 0, 0.301);
+        display: flex;
+        justify-content: center;
+        // align-content: center;
+        padding: 2rem 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+}
