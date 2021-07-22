@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
     const {data: blogs} = await axios.get('http://localhost:1337/blogs')
     // const {data: video} = await axios.get('http://localhost:1337/uploads/tekken.mp4')
-    // console.log(video)
+    // console.log(blogs)
 
     return {
         props: {
@@ -36,6 +36,7 @@ const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
   // router.query({ tab: 'about' })
   const [currentTab, setCurrentTab] = useState<string>(tab ? tab : 'about')
   // console.log(queryParam)
+  console.log(blogs)
 
   const About = () => {
     return (

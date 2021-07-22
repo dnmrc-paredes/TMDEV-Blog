@@ -1,23 +1,21 @@
 import { NextPage, GetStaticPaths, GetStaticProps } from 'next'
-import Image from 'next/image'
-import Head from 'next/head'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import Head from 'next/head'
 
-// Typescript
-import { Iblog } from '../../ts/blogs'
+// Components 
+import BlogPreview from '../../../../components/blogPreview/blogPreview'
 
-// Components
-import BlogPreview from '../../components/blogPreview/blogPreview'
+// Typescripts
+import { Iblog } from '../../../../ts/blogs'
 
 // Styles
-import styles from './Blog.module.scss'
+import styles from '../../../blog/Blog.module.scss'
 
 export const getStaticPaths: GetStaticPaths = () => {
 
     return {
         paths: [
-            { params: { blogid: '1' } }
+            { params: { slug: '1' } }
         ],
         fallback: 'blocking'
     }
@@ -26,25 +24,20 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
 
-    const param = params as {blogid: string}
-    const {data: blog} = await axios.get(`http://localhost:1337/blogs?slug=${param.blogid}`)
+    const param = params as {slug: string}
+    const {data: blog} = await axios.get(`http://localhost:1337/blogs?slug=${param.slug}`)
 
     return {
         props: {
-            blogSlug: param.blogid,
+            blogSlug: param.slug,
             blog
         }
     }
 
 }
 
-const Blog: NextPage<{blog: Iblog[]}> = ({blog}) => {
+const Preview: NextPage<{blog: Iblog[]}> = ({blog}) => {
 
-    const router = useRouter()
-    // console.log(!blog[0].blogImg.url)
-
-    // if (!blog[0].blogImg) return <h1> Loading </h1>
-    
     return (
         <div className={styles.container}>
             <Head>
@@ -56,7 +49,6 @@ const Blog: NextPage<{blog: Iblog[]}> = ({blog}) => {
             </main>
         </div>
     )
-
 }
 
-export default Blog
+export default Preview

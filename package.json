@@ -21,10 +21,12 @@
     "react-icons": "^4.2.0",
     "react-redux": "^7.2.4",
     "react-toastify": "^7.0.4",
+    "react-tooltip": "^4.2.21",
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
-    "sass": "^1.35.2"
+    "sass": "^1.35.2",
+    "slugify": "^1.6.0"
   },
   "devDependencies": {
     "@types/react": "17.0.14",

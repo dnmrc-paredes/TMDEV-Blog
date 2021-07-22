@@ -83,20 +83,6 @@
                     height: 200px;
                     padding: 0.5rem;
 
-                    // .blog {
-                    //     background-color: yellow;
-                    //     margin: 0.5rem 0;
-                    //     padding: 0.5rem;
-
-                    //     h3 {
-                    //         font-family: $main-font;
-                    //         font-weight: 500;
-                    //     }
-
-                    //     .options {
-                    //         margin-top: 0.5rem;
-                    //     }
-                    // }
                 }
             }
 
@@ -111,14 +97,18 @@
                 height: 100%;
                 position: relative;
                 z-index: 4;
+                border-radius: 8px;
 
                 .closebtn {
                     flex: 1;
+                    // position: relative;
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;
+                    padding: 0.5rem;
                     // background-color: red;
-                    width: 98%;
+                    width: 99%;
+                    // z-index: 5;
 
                     .close {
                         cursor: pointer;
@@ -175,6 +165,51 @@
                             border: solid #0C2D48 2px;
                             color: white;
                             background-color: #0C2D48;
+                        }
+                    }
+                }
+            }
+
+            .deletemodal {
+                display: flex;
+                background-color: white;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                width: 60%;
+                height: 40%;
+                padding: 2rem;
+                margin: 10rem auto;
+                position: relative;
+                z-index: 4;
+                border-radius: 8px;
+
+                h1 {
+                    font-family: $main-font;
+                    text-align: center;
+                }
+
+                .btns {
+                    // flex: 1;
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-evenly;
+                    // background-color: yellow;
+                    margin-top: 1rem;
+
+                    button {
+                        font-family: $main-font;
+                        padding: 0.5rem 0;
+                        border-radius: 8px;
+                        outline: none;
+                        border: none;
+                        width: 100px;
+                        cursor: pointer;
+                        font-weight: 600;
+
+                        &.yes {
+                            background-color: red;
+                            color: white;
                         }
                     }
                 }
