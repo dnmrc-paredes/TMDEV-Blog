@@ -8,6 +8,11 @@
     padding: 0.5rem;
     cursor: pointer;
     transition-duration: 0.3s;
+    border-radius: 3px;
+
+    &:hover {
+        background-color: #B1D4E0;
+    }
 
     h3 {
         font-family: $main-font;
@@ -40,4 +45,19 @@
 
 .tooltip {
     font-family: $main-font;
+}
+
+// Media Q's
+
+@media screen and (max-width: 550px) {
+
+    .blog {
+        flex-direction: column;
+
+        .options {
+            margin-top: 0.35rem;
+            justify-content: flex-start;
+        }
+    }
+
 }

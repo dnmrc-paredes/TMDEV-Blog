@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 * {
     padding: 0;
     margin: 0;
@@ -6,4 +8,54 @@
 
 html {
     scroll-behavior: smooth;
+}
+
+.loaderbox {
+    background-color: rgba(0, 0, 0, 0.1);
+    // padding: 4rem;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .loader {
+        // background-color: yellow;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // padding: 2rem;
+    }
+    
+}
+
+.errorbox {
+    // background-color: red;
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .error {
+        flex: 1;
+        // background-color: yellow;
+        display: flex;
+        justify-content: center;
+
+        h2 {
+            font-family: $main-font;
+            text-align: center;
+            margin: 0 1rem;
+        }
+
+        strong {
+            color: $jscolor;
+            cursor: pointer;
+        }
+    }
 }

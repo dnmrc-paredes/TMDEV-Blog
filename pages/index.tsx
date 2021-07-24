@@ -76,21 +76,21 @@ const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
 
             <div className={styles.item}>
               <div className={styles.img1}>
-                <Image height={200} width={360} src="http://localhost:1337/uploads/code_app.png" alt="sdfsdf" /> 
+                <Image height={200} width={360} src="/loremstudios.PNG" alt="Lorem Studios" /> 
               </div>
               <div className={styles.img2}>
-                <Image height={200} width={360} src="http://localhost:1337/uploads/blazingreaders.PNG" alt="sdfsdf" />
+                <Image height={200} width={360} src="/blazingreaders.PNG" alt="Blazing Readers" />
               </div> 
             </div>
 
-            {/* <div className={styles.item}>
+            <div className={styles.item}>
               <div className={styles.img1}>
-                <Image height={200} width={360} src="http://localhost:1337/uploads/code_app.png" alt="sdfsdf" /> 
+                <Image height={200} width={360} src="/lorembank.PNG" alt="Lorem Bank" /> 
               </div>
               <div className={styles.img2}>
-                <Image height={200} width={360} src="http://localhost:1337/uploads/blazingreaders.PNG" alt="sdfsdf" />
+                <Image height={200} width={360} src="/sociallorem.PNG" alt="Social Lorem" />
               </div> 
-            </div> */}
+            </div>
 
           </div>
       </div>

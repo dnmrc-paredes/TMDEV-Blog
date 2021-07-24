@@ -6,19 +6,26 @@ import styles from '../../pages/blog/Blog.module.scss'
 const BlogPreview: FC<{title: string, description: string, url?: string}> = ({title, description, url}) => {
 
     const router = useRouter()
-    console.log(url)
 
-    if (url?.startsWith('/default')) {
-        console.log('pota')
-    }
+    // console.log(url)
 
     const ModifedImageContainer = () => {
-        return (
-            url?.startsWith('/default') ?
-            <Image height={400} width={720} src="/default.jpg" alt={title} /> :
-            <Image height={400} width={720} src={`http://localhost:1337${url}`} alt={title} /> 
-        )
+
+        if (!url) {
+            return <Image height={400} width={720} src="/default.jpg" alt={title} />
+        }
+        
+        if (url?.startsWith('/default')) {
+            return <Image height={400} width={720} src="/default.jpg" alt={title} />
+        }
+
+        return <Image height={400} width={720} src={url} alt={title} /> 
+
     }
+
+    // url?.startsWith('/default') ?
+    // <Image height={400} width={720} src="/default.jpg" alt={title} /> :
+    // <Image height={400} width={720} src={`http://localhost:1337${url}`} alt={title} /> 
 
     return (
         <section id={styles.blog}>

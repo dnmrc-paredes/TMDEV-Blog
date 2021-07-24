@@ -3,7 +3,8 @@
 .container {
   // background-color: red;
   // min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.1);
+  // background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.3);
   transition-property: all;
   transition-duration: 0.3s;
   padding: 2rem 0;
@@ -43,18 +44,21 @@
           display: flex;
           margin-bottom: 1rem;
           // background-color: red;
+          transition-duration: 0.3s;
           padding: 1rem 0;
 
           .myprofileimg {
             flex: 1;
             display: flex;
             justify-content: center;
+            // transition-duration: 0.3s;
             // background-color: red;
             
             img {
               width: 150px;
               height: 150px;
               border-radius: 50%;
+
               // border: solid blue 3px;
             }
           }
@@ -64,6 +68,7 @@
             display: flex;
             justify-content: center;
             flex-direction: column;
+            transition-duration: 0.3s;
             // background-color: yellow;
 
             h1, p {
@@ -198,7 +203,7 @@
                 // flex: 1;
                 // background-color: red;
                 margin: 0.5rem;
-                border-radius: 3px;
+                // border-radius: 3px;
                 overflow: hidden;
               }
             }

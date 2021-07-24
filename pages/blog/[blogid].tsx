@@ -1,8 +1,8 @@
 import { NextPage, GetStaticPaths, GetStaticProps } from 'next'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Head from 'next/head'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 
 // Typescript
 import { Iblog } from '../../ts/blogs'
@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
 const Blog: NextPage<{blog: Iblog[]}> = ({blog}) => {
 
-    const router = useRouter()
+    // const router = useRouter()
     // console.log(!blog[0].blogImg.url)
 
     // if (!blog[0].blogImg) return <h1> Loading </h1>
@@ -52,7 +52,7 @@ const Blog: NextPage<{blog: Iblog[]}> = ({blog}) => {
             </Head>
 
             <main>
-                <BlogPreview title={blog[0].title} description={blog[0].description} url={blog[0].blogImg ? blog[0].blogImg.url : '/default.jpg'} />
+                <BlogPreview title={blog[0].title} description={blog[0].description} url={blog[0].blogUrl ? blog[0].blogUrl : '/default.jpg'} />
             </main>
         </div>
     )

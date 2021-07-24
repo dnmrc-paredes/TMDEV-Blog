@@ -14,7 +14,7 @@ const withVideos = require('next-videos')
 
 const nextConfig = {
   images: {
-    domains: ['localhost']
+    domains: ['localhost', 'res.cloudinary.com']
   }
 }
 

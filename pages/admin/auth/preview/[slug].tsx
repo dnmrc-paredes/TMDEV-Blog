@@ -45,7 +45,7 @@ const Preview: NextPage<{blog: Iblog[]}> = ({blog}) => {
             </Head>
 
             <main>
-                <BlogPreview title={blog[0].title} description={blog[0].description} url={blog[0].blogImg ? blog[0].blogImg.url : '/default.jpg'} />
+                <BlogPreview title={blog[0].title} description={blog[0].description} url={blog[0].blogUrl ? blog[0].blogUrl : '/default.jpg'} />
             </main>
         </div>
     )

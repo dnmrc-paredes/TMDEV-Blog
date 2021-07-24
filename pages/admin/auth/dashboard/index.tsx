@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import slugify from 'slugify'
 import { useState, useEffect, FormEvent } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
+import { BounceLoader } from 'react-spinners'
 
 // Typescript
 import { Iblog } from '../../../../ts/blogs'
@@ -20,6 +21,7 @@ import { ModalChildren } from '../../../../components/childrenModal/modal'
 import styles from './Dashboard.module.scss'
 import { MdClose } from 'react-icons/md'
 import 'react-toastify/dist/ReactToastify.css';
+import { ChangeEvent } from 'react'
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
@@ -49,6 +51,8 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
 
     const router = useRouter()
     const username = useSelector((state: Istate) => state.auth.username)
+    const [uploadLoading, setUploadLoading] = useState(false)
+    const [createStatus, setCreateStatus] = useState(false)
     const [editStatus, setEditStatus] = useState(false)
     const [deleteStatus, setDeleteStatus] = useState(false)
     const [toBeEdited, setToBeEdited] = useState<number | undefined | null>()
@@ -57,8 +61,11 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
         title: "",
         description: ""
     })
+    const [createBlog, setCreateBlog] = useState({
+        title: "",
+        description: ""
+    })
     
-    console.log(toBeDeleted)
 
     useEffect(() => {
         const foundBlog = allBlogs.filter(item => item.id === toBeEdited)[0]
@@ -69,6 +76,16 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
             })
         }
     }, [toBeEdited, allBlogs])
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
+        // console.log(e.target.files![0])
+        const {value, name} = e.target
+
+        setCreateBlog({
+            ...createBlog,
+            [name]: value
+        })
+    }
 
     const submitEdit = async (e: FormEvent) => {
         e.preventDefault()
@@ -97,6 +114,7 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
     const submitDelete = async () => {
         const {status} = await axios.delete(`http://localhost:1337/blogs/${toBeDeleted}`, {
             headers: {
+                'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${token}`
             }
         })
@@ -108,6 +126,96 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
         }
 
     }
+
+    const submitCreate = async (e: any) => {
+        e.preventDefault()
+
+        if (!e.target[0].files[0]) {
+
+            const formData = new FormData()
+
+            const tae = {
+                title: createBlog.title,
+                description: createBlog.description,
+                slug: slugify(createBlog.title, {lower: true, trim: true})
+            }
+            
+            setUploadLoading(true)
+            formData.append('data', JSON.stringify(tae))
+            const {status} = await axios.post(`http://localhost:1337/blogs/`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }) as {data: Iblog, status: number}
+
+            if (status === 200) {
+                setUploadLoading(false)
+                toast('Blog Created.', {type: 'success'})
+                setCreateBlog({
+                    title: "",
+                    description: ""
+                })
+                setCreateStatus(false)
+                return router.push(router.asPath)
+            }
+
+            // return toast('Please provide an image.', {type : 'error'})
+        }
+
+        if (!createBlog.title || !createBlog.description) {
+            return toast('Please provide all inputs.', {type: 'error'})
+        }
+
+        const imgData = new FormData()
+        imgData.append('files', e.target[0].files[0])
+
+        setUploadLoading(true)
+        const {status: fileStatus, data: data2} = await axios.post('http://localhost:1337/upload', imgData, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+
+        if (fileStatus === 200) {
+
+            const formData = new FormData()
+
+            const tae = {
+                title: createBlog.title,
+                description: createBlog.description,
+                slug: slugify(createBlog.title, {lower: true, trim: true}),
+                blogUrl: data2[0].url
+            }
+
+            formData.append('data', JSON.stringify(tae))
+            const {status} = await axios.post(`http://localhost:1337/blogs/`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }) as {data: Iblog, status: number}
+
+            if (status === 200) {
+                setUploadLoading(false)
+                toast('Blog Created.', {type: 'success'})
+                setCreateBlog({
+                    title: "",
+                    description: ""
+                })
+                setCreateStatus(false)
+                return router.push(router.asPath)
+            }
+
+        }
+
+
+    }
+
+    if (uploadLoading) return <div className="loaderbox">
+        <div className="loader">
+            <BounceLoader color={'#0C2D48'}/>
+        </div>
+    </div>
 
     return (
         <div className={styles.container} >
@@ -129,7 +237,15 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
 
                     <div className={styles.blogslist}>
                         <h1> Manage Blogs </h1>
+
+                        <div className={styles.addblog}>
+                            <button onClick={() => setCreateStatus(true)}> Add </button>
+                        </div>
+
                         <div className={styles.blogs}>
+
+                        { allBlogs.length === 0 && <h2> No Blogs </h2> }
+
                             { allBlogs.map(item => {
                                 return <BlogItem selected={toBeEdited} id={item.id} editSelected={setToBeEdited} deleteSelected={setToBeDeleted} toggleModal={setEditStatus} toggleModal2={setDeleteStatus} key={item.slug} slug={item.slug} title={item.title} />
                             }) }
@@ -171,6 +287,30 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
                         </div>
                     </ModalChildren> }
 
+                    { createStatus && <ModalChildren toggleModal={setCreateStatus}>
+                        <div className={styles.createmodal}>
+                            <div className={styles.close}> <MdClose onClick={() => {
+                                setCreateStatus(false)
+                                setCreateBlog({
+                                    title: "",
+                                    description: ""
+                                })
+                            }} className={styles.closebtn} size={25} /> </div>
+                            <form encType="multipart/form-data" onSubmit={submitCreate} className={styles.createform}>
+                                <h1> Create Blog </h1>
+
+                                <label htmlFor="blogimg"> Blog Image </label>
+                                <input type="file" onChange={handleChange} name="files"/>
+                                <label htmlFor="title"> Blog Title </label>
+                                <input type="text" onChange={handleChange} value={createBlog.title} name="title" />
+                                <label htmlFor="description"> Blog Description </label>
+                                <textarea name="description" value={createBlog.description} onChange={handleChange} cols={30} rows={10}></textarea>
+
+                                <button> Create </button>
+                            </form>
+                        </div>
+                    </ModalChildren> }
+
                 </div>
 
             </main>
@@ -182,3 +322,4 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
 }
 
 export default Dashboard
+

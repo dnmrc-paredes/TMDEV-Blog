@@ -1,8 +1,9 @@
 .container {
     position: fixed;
     // background-color: red;
-    background-color: rgba(0, 0, 0, 0.301);
+    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
+    width: 100%;
     justify-content: center;
     // align-content: center;
     padding: 2rem 0;
@@ -32,4 +33,14 @@
         bottom: 0;
         left: 0;
     }
+}
+
+// Media Q's
+
+@media screen and (max-width: 737px) {
+
+    .container {
+      padding: 0;
+    }
+  
 }

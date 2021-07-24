@@ -1,7 +1,8 @@
 @import '../../../../styles/variables.scss';
 
 .container {
-    background-color: rgba(0, 0, 0, 0.1);
+    // background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.3);
     transition-property: all;
     transition-duration: 0.3s;
     display: flex;
@@ -41,6 +42,7 @@
             .totalblogs {
                 // background-color: $jscolor;
                 // background-color: #00008B;
+                transition-duration: 0.3s;
                 display: flex;
                 flex-direction: column;
                 padding: 2rem;
@@ -67,6 +69,7 @@
 
             .blogslist {
                 // background-color: red;
+                transition-duration: 0.3s;
                 padding: 2rem;
 
                 h1 {
@@ -77,11 +80,46 @@
                     color: white;
                 }
 
+                .addblog {
+                    margin-top: 1rem;
+                    display: flex;
+                    justify-content: flex-end;
+
+                    button {
+                        padding: 0.2rem 0;
+                        width: 60px;
+                        border: none;
+                        outline: none;
+                        border-radius: 8px;
+                        border: #0C2D48 solid 2px;
+                        font-family: $main-font;
+                        background-color: white;
+                        color: #0C2D48;
+                        transition-duration: 0.3s;
+                        cursor: pointer;
+                        font-weight: 600;
+                        font-size: 0.8rem;
+                        text-transform: uppercase;
+
+                        &:hover {
+                            background-color: #0C2D48;
+                            border: solid transparent 2px;
+                            color: white;
+                        }
+                    }
+                }
+
                 .blogs {
                     margin-top: 1rem;
                     // background-color: teal;
                     height: 200px;
                     padding: 0.5rem;
+                    overflow-y: scroll;
+
+                    h2 {
+                        font-family: $main-font;
+                        text-align: center;
+                    }
 
                 }
             }
@@ -98,6 +136,7 @@
                 position: relative;
                 z-index: 4;
                 border-radius: 8px;
+                transition-duration: 0.3s;
 
                 .closebtn {
                     flex: 1;
@@ -170,6 +209,8 @@
                 }
             }
 
+            // Delete Modal
+
             .deletemodal {
                 display: flex;
                 background-color: white;
@@ -183,6 +224,7 @@
                 position: relative;
                 z-index: 4;
                 border-radius: 8px;
+                transition-duration: 0.3s;
 
                 h1 {
                     font-family: $main-font;
@@ -214,6 +256,93 @@
                     }
                 }
             }
+
+            // Create Modal
+
+            .createmodal {
+                display: flex;
+                background-color: white;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                width: 720px;
+                height: 100%;
+                position: relative;
+                z-index: 4;
+                border-radius: 8px;
+                transition-duration: 0.3s;
+
+                .close {
+                    // background-color: red;
+                    display: flex;
+                    padding: 1rem;
+                    justify-content: flex-end;
+                    align-items: center;
+                    width: 100%;
+
+                    .closebtn {
+                        cursor: pointer;
+                    }
+                }
+
+                .createform {
+                    flex: 15;
+                    display: flex;
+                    // align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    // align-items: left;
+                    // background-color: yellow;
+                    width: 90%;
+
+
+                    h1 {
+                        font-family: $main-font;
+                        margin-bottom: 1rem;
+                        // background-color: red;
+                    }
+
+                    label {
+                        font-family: $main-font;
+                        margin: 0.5rem;
+                        // width: 95%;
+                        // background-color: teal;
+                        
+                    }
+    
+                    input, textarea {
+                        // width: 100%;
+                        padding: 0.5rem;
+                        margin: 0.5rem;
+                        // background-color: red;
+                        font-family: $main-font;
+                    }
+
+                    button {
+                        width: 100px;
+                        margin: 0.5rem;
+                        font-family: $main-font;
+                        padding: 0.5rem 1rem;
+                        border-radius: 25px;
+                        outline: none;
+                        border: none;
+                        border: solid #0C2D48 2px;
+                        background-color: white;
+                        color: #0C2D48;
+                        font-weight: 600;
+                        transition-property: all;
+                        transition-duration: 0.3s;
+                        cursor: pointer;
+    
+                        &:hover {
+                            border: solid #0C2D48 2px;
+                            color: white;
+                            background-color: #0C2D48;
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
@@ -224,6 +353,140 @@
 
     .container {
       padding: 0;
+
+      main.main {
+
+        .dashboardroot {
+
+            .editmodal {
+                width: 600px;
+            }
+
+            .createmodal {
+                width: 600px;
+            }
+        }
+      }
     }
   
-  }
+}
+
+@media screen and (max-width: 600px) {
+
+    .container {
+      padding: 0;
+
+      main.main {
+
+        .dashboardroot {
+
+            .editmodal {
+                width: 500px;
+            }
+
+            .createmodal {
+                width: 500px;
+            }
+        }
+      }
+    }
+  
+}
+
+@media screen and (max-width: 550px) {
+
+    .container {
+        // padding: 1rem;
+        main.main {
+
+            .dashboardroot {
+
+                .totalblogs {
+                    padding: 1rem;
+                    margin: 0 1rem;
+                }
+
+                .blogslist {
+                    padding: 1rem;
+
+                    h1 {
+                        padding: 1rem;
+                    }
+                }
+
+                .deletemodal {
+                    width: 80%;
+
+                    h1 {
+                        font-size: 1.5rem;
+                    }
+                }
+
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+
+    .container {
+      padding: 0;
+
+      main.main {
+
+        .dashboardroot {
+
+            .editmodal {
+                width: 400px;
+            }
+
+            .createmodal {
+                width: 400px;
+            }
+        }
+      }
+    }
+  
+}
+
+@media screen and (max-width: 450px) {
+
+    .container {
+      padding: 0;
+
+      main.main {
+
+        .dashboardroot {
+
+            .deletemodal {
+                width: 100%;
+            }
+
+        }
+      }
+    }
+  
+}
+
+@media screen and (max-width: 400px) {
+
+    .container {
+      padding: 0;
+
+      main.main {
+
+        .dashboardroot {
+
+            .editmodal {
+                width: 350px;
+            }
+
+            .createmodal {
+                width: 350px;
+            }
+        }
+      }
+    }
+  
+}

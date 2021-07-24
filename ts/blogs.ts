@@ -5,7 +5,5 @@ export interface Iblog {
     title: string
     created_at: string | Date
     published_at: string | Date
-    blogImg: {
-        url: string
-    }
+    blogUrl: string
 }
