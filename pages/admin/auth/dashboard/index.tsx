@@ -7,7 +7,11 @@ import { useRouter } from 'next/router'
 import slugify from 'slugify'
 import { useState, useEffect, FormEvent } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
-import { BounceLoader } from 'react-spinners'
+import { BounceLoader, BeatLoader } from 'react-spinners'
+import InfiniteScroll from 'react-infinite-scroll-component'
+
+// Helpers
+import { URL } from '../../../../helpers/url'
 
 // Typescript
 import { Iblog } from '../../../../ts/blogs'
@@ -36,21 +40,26 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
         }
     }
 
-    const {data: allBlogs} = await axios.get<Iblog[]>('http://localhost:1337/blogs')
+    const {data: allBlogs} = await axios.get<Iblog[]>(`${URL}/blogs?_limit=5&_sort=published_at:DESC`)
+    const {data: total} = await axios.get<Iblog[]>(`${URL}/blogs`)
 
     return {
         props: {
             allBlogs,
+            totalBlogs: total.length,
             token: tae
         }
     }
 
 }
 
-const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, token}) => {
+const Dashboard: NextPage<{allBlogs: Iblog[], token: string, totalBlogs: number}> = ({allBlogs, token, totalBlogs}) => {
 
     const router = useRouter()
     const username = useSelector((state: Istate) => state.auth.username)
+    const [myBlogs, setMyBlogs] = useState<Iblog[]>(allBlogs)
+    const [pageLimit, setPageLimit] = useState(5)
+    const [hasMore, setHasMore] = useState(true)
     const [uploadLoading, setUploadLoading] = useState(false)
     const [createStatus, setCreateStatus] = useState(false)
     const [editStatus, setEditStatus] = useState(false)
@@ -66,7 +75,6 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
         description: ""
     })
     
-
     useEffect(() => {
         const foundBlog = allBlogs.filter(item => item.id === toBeEdited)[0]
         if (toBeEdited) {
@@ -76,6 +84,22 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
             })
         }
     }, [toBeEdited, allBlogs])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const {data} = await axios.get(`${URL}/blogs?_limit=${pageLimit}&_sort=published_at:DESC`)
+            
+            if (data.length >= totalBlogs) {
+                setHasMore(false)
+                return setMyBlogs(data)
+            }
+
+            setMyBlogs(data)
+        }
+
+        fetchData()
+
+    }, [pageLimit, totalBlogs])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
         // console.log(e.target.files![0])
@@ -98,7 +122,7 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
         }
         // console.log(newSlug)
         // console.log(toBeEdited)
-        const {status} = await axios.put(`http://localhost:1337/blogs/${toBeEdited}`, updatedBlog, {
+        const {status} = await axios.put(`${URL}/blogs/${toBeEdited}`, updatedBlog, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -112,7 +136,7 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
     }
 
     const submitDelete = async () => {
-        const {status} = await axios.delete(`http://localhost:1337/blogs/${toBeDeleted}`, {
+        const {status} = await axios.delete(`${URL}/blogs/${toBeDeleted}`, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${token}`
@@ -142,7 +166,7 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
             
             setUploadLoading(true)
             formData.append('data', JSON.stringify(tae))
-            const {status} = await axios.post(`http://localhost:1337/blogs/`, formData, {
+            const {status} = await axios.post(`${URL}/blogs`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -170,7 +194,7 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
         imgData.append('files', e.target[0].files[0])
 
         setUploadLoading(true)
-        const {status: fileStatus, data: data2} = await axios.post('http://localhost:1337/upload', imgData, {
+        const {status: fileStatus, data: data2} = await axios.post(`${URL}/upload`, imgData, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'
@@ -189,7 +213,7 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
             }
 
             formData.append('data', JSON.stringify(tae))
-            const {status} = await axios.post(`http://localhost:1337/blogs/`, formData, {
+            const {status} = await axios.post(`${URL}/blogs`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -232,7 +256,7 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
                 <div className={styles.dashboardroot}>
                     <div className={styles.totalblogs}>
                         <h1> Total Blogs </h1>
-                        <p> {allBlogs.length} </p>
+                        <p> {totalBlogs} </p>
                     </div>
 
                     <div className={styles.blogslist}>
@@ -242,14 +266,24 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
                             <button onClick={() => setCreateStatus(true)}> Add </button>
                         </div>
 
-                        <div className={styles.blogs}>
+                        { myBlogs.length === 0 ? <h2 className="noblogs"> No Blogs </h2> : 
+                            <InfiniteScroll
+                            dataLength={myBlogs.length}
+                            next={() => setPageLimit(prev => prev+=5)}
+                            loader={ <div className="moonloader"> <BeatLoader size={15} color={'#0C2D48'} /> </div> }
+                            hasMore={hasMore}
+                            endMessage={<p className="max"> Max results </p>}
+                            height={200}
+                            className={styles.blogs}
+                            hasChildren={true}
+                            >
 
-                        { allBlogs.length === 0 && <h2> No Blogs </h2> }
-
-                            { allBlogs.map(item => {
+                            { myBlogs.map(item => {
                                 return <BlogItem selected={toBeEdited} id={item.id} editSelected={setToBeEdited} deleteSelected={setToBeDeleted} toggleModal={setEditStatus} toggleModal2={setDeleteStatus} key={item.slug} slug={item.slug} title={item.title} />
                             }) }
-                        </div>
+
+                        </InfiniteScroll> }
+
                     </div>
 
                     {/* Edit Modal */}
@@ -262,6 +296,8 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string}> = ({allBlogs, toke
                                 setEditStatus(false)
                             }} className={styles.close} size="25"/> </div>
                             <div className={styles.edit}>
+                                <h1> Edit Blog </h1>
+
                                 <label htmlFor="title"> Blog Title </label>
                                 <input type="text" value={edit.title} onChange={(e) => setEdit({title: e.target.value, description: edit.description})} name="title"/>
                                 <label htmlFor="description"> Blog Description </label>

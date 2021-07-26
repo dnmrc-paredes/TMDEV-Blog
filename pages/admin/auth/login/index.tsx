@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useState, ChangeEvent, FormEvent } from 'react'
 import { useDispatch } from 'react-redux'
 import cookies from 'next-cookies'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -35,6 +36,7 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
 const Login: NextPage = () => {
 
     const dispatch = useDispatch()
+    const router = useRouter()
     const [login, setLogin] = useState({
         identifier: "",
         password: ""
@@ -62,6 +64,7 @@ const Login: NextPage = () => {
             // sessionStorage.setItem('token', data.jwt)
             if (data.user) {
                 dispatch(loginUser(data.user))
+                router.push('/admin/auth/dashboard')
             }
 
             document.cookie=`tmdevtoken=${data.jwt}; path=/;`

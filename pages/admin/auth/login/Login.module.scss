@@ -54,17 +54,19 @@
                 // margin: auto;
                 padding: 0.5rem 1rem;
                 border-radius: 25px;
-                border: solid 1px #0000B9;
+                border: solid 2.5px #0C2D48;
                 outline: none;
                 margin-top: 1rem;
                 background-color: white;
                 transition-property: all;
                 transition-duration: 0.5s;
                 cursor: pointer;
-                color: #0000B9;
+                font-family: $main-font;
+                font-weight: 600;
+                color: #0C2D48;
 
                 &:hover {
-                    background-color: #0000B9;
+                    background-color: #0C2D48;
                     color: white;
                 }
             }

@@ -2,107 +2,63 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { GetServerSideProps, NextPage } from 'next'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { BeatLoader } from 'react-spinners'
+
+// Helpers
+import { URL } from '../helpers/url'
 
 // Typescript
 import { Iblog } from '../ts/blogs'
 
 // Components
 import Footer from '../components/footer/footer'
+import About from '../components/tabs/about'
+import Blog from '../components/tabs/blog'
+import Gallery from '../components/tabs/gallery'
 
 // Styles & Images
 import styles from '../styles/Home.module.scss'
 
-export const getServerSideProps: GetServerSideProps = async () => {
+// export const getServerSideProps: GetServerSideProps = async () => {
 
-    const {data: blogs} = await axios.get('http://localhost:1337/blogs')
-    // const {data: video} = await axios.get('http://localhost:1337/uploads/tekken.mp4')
-    // console.log(blogs)
+//     const {data: blogs} = await axios.get(`${URL}/blogs?_limit=5&_sort=published_at:DESC`)
+//     const {data: total} = await axios.get<Iblog[]>(`${URL}/blogs`)
+//     // const {data: video} = await axios.get('http://localhost:1337/uploads/tekken.mp4')
+//     // console.log(blogs)
 
-    return {
-        props: {
-          blogs
-        }
-    }
+//     return {
+//         props: {
+//           blogs,
+//           totalBlogs: total.length
+//         }
+//     }
 
-}
+// }
 
-const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
+const Home: NextPage = () => {
 
   const router = useRouter()
   const { tab } = router.query as {tab: string}
   // router.query({ tab: 'about' })
   const [currentTab, setCurrentTab] = useState<string>(tab ? tab : 'about')
   // console.log(queryParam)
-  console.log(blogs)
-
-  const About = () => {
-    return (
-      <div className={styles.aboutroot} >
-        <div className={styles.aboutme}>
-          <h1> About Me </h1>
-          <p> Hi, I&apos;m <strong> Dinmarc </strong>, I&apos;m a <strong> Web Developer </strong> specializing <strong> Javascript </strong> as main language.
-          I loved and like to create stuffs I always want to discover new things in my specialized language I&apos;m currently advancing my knowledge about Javascript both Frontend & Backend.
-          </p> 
-        </div>
-      </div>
-    )
-  }
-
-  const Blog = () => {
-    return (
-      <div className={styles.blogroot}>
-        <h1> Blogs </h1>
-        { blogs && blogs.map(item => {
-          return <Link href={`/blog/${item.slug}`} key={item.slug} passHref>
-              <div className={styles.blog}>
-                <h3> {item.title} </h3>
-                {/* <p> {item.description.substr(0, 30)} </p>  */}
-              </div>
-          </Link>
-        }) }
-      </div>
-    )
-  }
-
-  const Gallery = () => {
-    return (
-      <div className={styles.galleryroot}>
-        <h1> Gallery </h1>
-          {/* <video autoPlay width="330px" controls src="http://localhost:1337/uploads/tekken.mp4" /> */}
-          <div className={styles.galleryitem}>
-
-            <div className={styles.item}>
-              <div className={styles.img1}>
-                <Image height={200} width={360} src="/loremstudios.PNG" alt="Lorem Studios" /> 
-              </div>
-              <div className={styles.img2}>
-                <Image height={200} width={360} src="/blazingreaders.PNG" alt="Blazing Readers" />
-              </div> 
-            </div>
-
-            <div className={styles.item}>
-              <div className={styles.img1}>
-                <Image height={200} width={360} src="/lorembank.PNG" alt="Lorem Bank" /> 
-              </div>
-              <div className={styles.img2}>
-                <Image height={200} width={360} src="/sociallorem.PNG" alt="Social Lorem" />
-              </div> 
-            </div>
-
-          </div>
-      </div>
-    )
-  }
+  // console.log(myBlogs)
 
   return (
     <div className={styles.container}>
         <Head>
           <title> TMDEV Blog </title>
-          <meta name="description" content="A small platform to Support my work." />
+          <meta name="description" content="TMDEV Blog read articles about my story how I learned Web Development, Reviews about technologies and my journey to tech industry" />
           <link rel="icon" href="/favicon.ico" />
+          <meta property="og:type" content="website" />
+          <meta property="og:site_name" content="TMDEV Blog" />
+          <meta property="og:title" content="TMDEV Blog" />
+          <meta property="og:description" content="TMDEV Blog read articles about my story how I learned Web Development, Reviews about technologies and my journey to tech industry" />
+          <meta property="og:image" content="/default.jpg" />
         </Head>
 
         <main>
@@ -139,9 +95,8 @@ const Home: NextPage<{blogs: Iblog[]}> = ({blogs}) => {
                     </div>
 
                     <div className={styles.currentTab}>
-                      {/* { currentTab !== 'about' || 'gallery' || 'blog' && <About/> } */}
                       { currentTab === 'about' && <About/> }
-                      { currentTab === 'blog' && <Blog/> }
+                      { currentTab === 'blog' && <Blog currentTab={currentTab} /> }
                       { currentTab === 'gallery' && <Gallery/> }
                     </div>
 
