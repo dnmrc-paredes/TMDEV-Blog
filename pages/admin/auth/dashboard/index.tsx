@@ -99,7 +99,7 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string, totalBlogs: number}
 
         fetchData()
 
-    }, [pageLimit, totalBlogs])
+    }, [pageLimit, totalBlogs, editStatus])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
         // console.log(e.target.files![0])
@@ -113,6 +113,7 @@ const Dashboard: NextPage<{allBlogs: Iblog[], token: string, totalBlogs: number}
 
     const submitEdit = async (e: FormEvent) => {
         e.preventDefault()
+        
         const {title, description} = edit
         const newSlug = slugify(title, {lower: true, trim: true})
         const updatedBlog = {

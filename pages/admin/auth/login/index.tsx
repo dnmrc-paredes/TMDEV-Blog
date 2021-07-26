@@ -7,6 +7,9 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 
+// Helpers
+import { URL } from '../../../../helpers/url'
+
 // Redux
 import { loginUser } from '../../../../redux/actions/action'
 
@@ -60,7 +63,7 @@ const Login: NextPage = () => {
                 return toast('Please fill all inputs.', { type: "error" })
             }
     
-            const {data} = await axios.post('http://localhost:1337/auth/local/', login)
+            const {data} = await axios.post(`${URL}/auth/local/`, login)
             // sessionStorage.setItem('token', data.jwt)
             if (data.user) {
                 dispatch(loginUser(data.user))

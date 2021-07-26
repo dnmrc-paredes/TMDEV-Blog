@@ -2,6 +2,9 @@ import { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import axios from 'axios'
 import Head from 'next/head'
 
+// Helpers
+import { URL } from '../../../../helpers/url' 
+
 // Components 
 import BlogPreview from '../../../../components/blogPreview/blogPreview'
 
@@ -25,7 +28,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps = async ({params}) => {
 
     const param = params as {slug: string}
-    const {data: blog} = await axios.get(`http://localhost:1337/blogs?slug=${param.slug}`)
+    const {data: blog} = await axios.get(`${URL}/blogs?slug=${param.slug}`)
 
     return {
         props: {

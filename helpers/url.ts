@@ -1,2 +1,2 @@
-// export const URL = 'https://tmdev-blog.herokuapp.com'
-export const URL = 'http://localhost:1337'
+export const URL = 'https://tmdev-blog-strapi.herokuapp.com'
+// export const URL = 'http://localhost:1337'

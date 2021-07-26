@@ -53,7 +53,7 @@ const Blog: FC<{currentTab: string}> = ({currentTab}) => {
 
       const fetchData = async () => {
 
-        const {data: blogs} = await axios.get(`${URL}/blogs?_limit=5&_sort=published_at:DESC`)
+        const {data: blogs} = await axios.get<Iblog[]>(`${URL}/blogs?_limit=5&_sort=published_at:DESC`)
         const {data: total} = await axios.get<Iblog[]>(`${URL}/blogs`)
 
         setAllBlogs(blogs)

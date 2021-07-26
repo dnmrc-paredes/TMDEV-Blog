@@ -23,30 +23,11 @@ import Gallery from '../components/tabs/gallery'
 // Styles & Images
 import styles from '../styles/Home.module.scss'
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-
-//     const {data: blogs} = await axios.get(`${URL}/blogs?_limit=5&_sort=published_at:DESC`)
-//     const {data: total} = await axios.get<Iblog[]>(`${URL}/blogs`)
-//     // const {data: video} = await axios.get('http://localhost:1337/uploads/tekken.mp4')
-//     // console.log(blogs)
-
-//     return {
-//         props: {
-//           blogs,
-//           totalBlogs: total.length
-//         }
-//     }
-
-// }
-
 const Home: NextPage = () => {
 
   const router = useRouter()
   const { tab } = router.query as {tab: string}
-  // router.query({ tab: 'about' })
   const [currentTab, setCurrentTab] = useState<string>(tab ? tab : 'about')
-  // console.log(queryParam)
-  // console.log(myBlogs)
 
   return (
     <div className={styles.container}>

@@ -4,6 +4,9 @@ import Head from 'next/head'
 import axios from 'axios'
 // import { useRouter } from 'next/router'
 
+// Helpers
+import { URL } from '../../helpers/url'
+
 // Typescript
 import { Iblog } from '../../ts/blogs'
 
@@ -27,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps = async ({params}) => {
 
     const param = params as {blogid: string}
-    const {data: blog} = await axios.get(`http://localhost:1337/blogs?slug=${param.blogid}`)
+    const {data: blog} = await axios.get(`${URL}/blogs?slug=${param.blogid}`)
 
     return {
         props: {
@@ -39,11 +42,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 }
 
 const Blog: NextPage<{blog: Iblog[]}> = ({blog}) => {
-
-    // const router = useRouter()
-    // console.log(!blog[0].blogImg.url)
-
-    // if (!blog[0].blogImg) return <h1> Loading </h1>
     
     return (
         <div className={styles.container}>
